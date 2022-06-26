@@ -3,9 +3,9 @@
     android:shape="rectangle" >
 
     <!-- view background color -->
-<!--    <solid-->
-<!--        android:color="@color/blackshade" >-->
-<!--    </solid>-->
+    <solid
+        android:color="@color/blackshade" >
+    </solid>
 
     <!-- view border color and width -->
     <stroke

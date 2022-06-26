@@ -2,6 +2,7 @@ package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    public boolean pointcheck = false;
     private Button one;
     private Button two;
     private Button three;
@@ -32,10 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton multiply;
     private TextView answer;
     private TextView display;
-    public boolean pointcheck = false;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,84 +66,83 @@ public class MainActivity extends AppCompatActivity {
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '1';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '2';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '3';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '4';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         five.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '5';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '6';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '7';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '8';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '9';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
-                if(str.length() != 0)
-                {
-                    str = str.substring(0,str.length()-1);
+                String str = display.getText().toString();
+                if (str.length() != 0) {
+                    str = str.substring(0, str.length() - 1);
                 }
-                answer.setText(str);
+                display.setText(str);
             }
         });
         clear.setOnClickListener(new View.OnClickListener() {
@@ -153,251 +150,311 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 answer.setText("");
                 display.setText("");
+                pointcheck = false;
             }
         });
         point.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
-                if(!pointcheck && str.length() != 0 && str.charAt(str.length()-1) != '.') {
+                String str = display.getText().toString();
+                if (!pointcheck && str.length() != 0 && str.charAt(str.length() - 1) != '.') {
                     str = str + '.';
                     pointcheck = true;
                 }
-                answer.setText(str);
+                display.setText(str);
             }
         });
         zero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
+                String str = display.getText().toString();
                 str = str + '0';
-                answer.setText(str);
+                display.setText(str);
             }
         });
         plusminus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = answer.getText().toString();
-                if(str.length() == 0)
-                {
+                String str = display.getText().toString();
+                if (str.length() == 0) {
 //                    Toast.makeText(MainActivity.this, "Press Any Digit First", Toast.LENGTH_SHORT).show();
                     str = '-' + str;
-                }
-                else if(str.charAt(0) == '-')
+                } else if (str.charAt(0) == '-')
                     str = str.substring(1);
                 else
                     str = '-' + str;
-                answer.setText(str);
+                display.setText(str);
             }
         });
         equal.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 String str = answer.getText().toString();
                 String s = display.getText().toString();
-                if(str.length() == 0 && s.length() == 0){
-                    Toast.makeText(MainActivity.this, "Press Any Digit First", Toast.LENGTH_SHORT).show();
-                }
-                else if((str.length() != 0)){
+                if (str.length() == 0 && s.length() == 0) {
+                    Toast.makeText(equal.getContext(), "Press Any Digit First", Toast.LENGTH_SHORT).show();
+                } else if (str.length() == 0) {
+                    if (s.charAt(0) != '=') display.setText("= " + s);
+//                    if(s.charAt(0) == '-') answer.setText("(" + s + ")");
+//                    else answer.setText(s);
+                } else if (str.length() != 0) {
+                    if (s.length() > 0) {
+                        if (s.charAt(0) == '-')
+                            str += '(' + s + ')';
+                        else
+                            str += s;
+                    }
+                    System.out.println(str);
                     String num = "";
                     int idx = -1;
+                    boolean pm = false;
                     char op = '.';
                     double ans = 0;
-                    for(int i = 0;i<str.length();i++)
-                    {
+                    for (int i = 0; i < str.length(); i++) {
 //                        System.out.println(num);
 //                        System.out.println(op);
-                        if(str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+                        if (str.charAt(i) >= '0' && str.charAt(i) <= '9') {
                             num += str.charAt(i);
-                        }
-                        else
-                        {
+                        } else if (str.charAt(i) == '.') {
+                            num += str.charAt(i);
+                        } else if (str.charAt(i) == '(') {
+                            i++;
+                            pm = true;
+                        } else if (str.charAt(i) == ')') continue;
+                        else {
                             op = str.charAt(i);
-                            idx = i+1;
+                            idx = i + 1;
                             break;
                         }
                     }
                     System.out.println(num);
                     System.out.println(op);
                     ans = Double.parseDouble(num);
-//                    String num1 = "";
-//                    String num2 = "";
+                    if (pm == true)
+                        ans = 0 - ans;
                     num = "";
-                    for(int i = idx;i<str.length();i++)
-                    {
-                        System.out.println(num);
-                        System.out.println(op);
-                        if(str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+                    pm = false;
+                    for (int i = idx; i < str.length(); i++) {
+//                        System.out.println(num);
+//                        System.out.println(op);
+                        if (str.charAt(i) >= '0' && str.charAt(i) <= '9') {
                             num += str.charAt(i);
-                        }
+                        }  else if (str.charAt(i) == '.') {
+                            num += str.charAt(i);
+                        }  else if (str.charAt(i) == '(') {
+                            i++;
+                            pm = true;
+                        } else if (str.charAt(i) == ')') continue;
                         else {
-                            if (op == '+')
-                            {
-                                ans += Double.parseDouble(num);
+                            if (op == '+') {
+                                double n = Double.parseDouble(num);
+                                if (pm == true) n = 0 - n;
+                                ans += n;
                                 op = str.charAt(i);
+                                pm = false;
 //                                continue;
-                            }
-                            else if (op == '-') {
-                                ans -= Double.parseDouble(num);
+                            } else if (op == '-') {
+                                double n = Double.parseDouble(num);
+                                if (pm == true) n = 0 - n;
+                                ans -= n;
                                 op = str.charAt(i);
-//                                continue;
-                            }
-                            else if (op == '*') {
-                                ans *= Double.parseDouble(num);
+                                pm = false;
+                            } else if (op == '*') {
+                                System.out.println(num);
+                                double n = Double.parseDouble(num);
+                                System.out.println(n);
+                                if (pm == true) n = 0 - n;
+                                ans *= n;
                                 op = str.charAt(i);
-//                                continue;
-                            }
-                            else if (op == '/') {
-                                ans /= Double.parseDouble(num);
+                                pm = false;
+                            } else if (op == '/') {
+                                double n = Double.parseDouble(num);
+                                if (pm == true) {
+                                    n = 0 - n;
+                                }
+                                ans /= n;
                                 op = str.charAt(i);
-//                                continue;
+                                pm = false;
                             }
                             num = "";
                         }
-                        System.out.println(num);
-                        System.out.println(op);
+//                        System.out.println(num);
+//                        System.out.println(op);
                     }
-                    if(num.length() != 0) {
+                    if(num.length()==0) num="0";
+                    System.out.println("@@" + num);
+                    double n = Double.parseDouble(num);
+                    System.out.println(n);
+                    if (pm) n = 0 - n;
+                    if (num.length() != 0) {
                         if (op == '+')
-                            ans += Double.parseDouble(num);
+                            ans += n;
                         if (op == '-')
-                            ans -= Double.parseDouble(num);
+                            ans -= n;
                         if (op == '*')
-                            ans *= Double.parseDouble(num);
+                            ans *= n;
                         if (op == '/')
-                            ans /= Double.parseDouble(num);
+                            ans /= n;
                     }
 
-                    display.setText(" = "+ans);
-                    answer.setText(str);
+                    display.setText("= " + ans);
+                    answer.setText("");
+                    pointcheck = false;
                 }
-//                else if((str.length() == 0) && (s.length() != 0))
-//                    display.setText(s);
-//                else
-//                {
-//                    double ans = Double.parseDouble(s);
-//                    String num2 = "";
-//                    char op = '.';
-//                    for(int i = str.length()-1;i >= 0;i--)
-//                    {
-//                        if(str.charAt(i) == '+'){
-//                            op = '+';
-//                            break;
-//                        }
-//                        if(str.charAt(i) == '-'){
-//                            op = '-';
-//                            break;
-//                        }
-//                        if(str.charAt(i) == '*'){
-//                            op = '*';
-//                            break;
-//                        }
-//                        if(str.charAt(i) == '/'){
-//                            op = '/';
-//                            break;
-//                        }
-//                        num2 = str.charAt(i) + num2;
-//                    }
-//                    if(op == '+')
-//                        ans += Double.parseDouble(num2);
-//                    if(op == '-')
-//                        ans -= Double.parseDouble(num2);
-//                    if(op == '*')
-//                        ans *= Double.parseDouble(num2);
-//                    if(op == '/')
-//                        ans /= Double.parseDouble(num2);
-//                    answer.setText(str);
-//                    display.setText(""+ans);
-//
-//                }
             }
         });
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pointcheck = false;
                 String str = answer.getText().toString();
                 String s = display.getText().toString();
-                if(str.length() == 0 && s.length() == 0){
-                    Toast.makeText(MainActivity.this, "Press Any Digit First", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    if(!(str.charAt(str.length()-1) <= '9' && str.charAt(str.length()-1) >= '0'))
+                if (str.length() == 0 && s.length() == 0) {
+                    Toast.makeText(plus.getContext(), "Press Any Digit First", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (str.length() > 0 && s.length() == 0 && !(str.charAt(str.length() - 1) <= '9' && str.charAt(str.length() - 1) >= '0'))
+//                        if (str.charAt(str.length() - 1) != '+')
                         str = str.substring(0, str.length() - 1);
-                    str += '+';
-                    answer.setText(str);
+                    else if (s.charAt(0) == '=') {
+                        s = s.substring(2);
+                    }
+
+                    if (s.length() == 0) {
+                        str += '+';
+                        answer.setText(str);
+                    } else {
+                        if (s.charAt(0) == '-') {
+                            s = '(' + s;
+                            s += ')';
+                        }
+                        if (str.length() > 0) {
+//                            System.out.println(str);
+                            str = str + s + "+";
+                        } else {
+                            str += s;
+                            str += "+";
+                        }
+                        System.out.println(str);
+                        answer.setText(str);
+                        display.setText("");
+                    }
                 }
+                pointcheck = false;
             }
-//                if(str.charAt(str.length()-1) <= '9' && str.charAt(str.length()-1) >= '0')
-//                    str+= '+';
-//                else {
-//                    str = str.substring(0, str.length() - 1);
-//                }
         });
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pointcheck = false;
                 String str = answer.getText().toString();
                 String s = display.getText().toString();
-                if(str.length() == 0 && s.length() == 0){
-                    Toast.makeText(MainActivity.this, "Press Any Digit First", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    if(!(str.charAt(str.length()-1) <= '9' && str.charAt(str.length()-1) >= '0'))
+                if (str.length() == 0 && s.length() == 0) {
+                    Toast.makeText(minus.getContext(), "Press Any Digit First", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (str.length() > 0 && s.length() == 0 && !(str.charAt(str.length() - 1) <= '9' && str.charAt(str.length() - 1) >= '0'))
+//                        if (str.charAt(str.length() - 1) != '-')
                         str = str.substring(0, str.length() - 1);
-                    str += '-';
-                    answer.setText(str);
+                    else if (s.charAt(0) == '=') {
+                        s = s.substring(2);
+                    }
+                    if (s.length() == 0) {
+                        str += '-';
+                        answer.setText(str);
+                    } else {
+                        if (s.charAt(0) == '-') {
+                            s = '(' + s;
+                            s += ')';
+                        }
+                        if (str.length() > 0) {
+                            System.out.println(str);
+                            str = str + s + "-";
+                        } else {
+                            str += s;
+                            str += "-";
+                        }
+                        System.out.println(str);
+                        answer.setText(str);
+                        display.setText("");
+                    }
                 }
-//                if(str.charAt(str.length()-1) <= '9' && str.charAt(str.length()-1) >= '0')
-//                    str+= '-';
-//                else {
-//                    str = str.substring(0, str.length() - 1);
-//                }
+                pointcheck = false;
             }
         });
         multiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pointcheck = false;
                 String str = answer.getText().toString();
                 String s = display.getText().toString();
-                if(str.length() == 0 && s.length() == 0){
-                    Toast.makeText(MainActivity.this, "Press Any Digit First", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    if(!(str.charAt(str.length()-1) <= '9' && str.charAt(str.length()-1) >= '0'))
+                if (str.length() == 0 && s.length() == 0) {
+                    Toast.makeText(multiply.getContext(), "Clicked Add Add Cover", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (str.length() > 0 && s.length() == 0 && !(str.charAt(str.length() - 1) <= '9' && str.charAt(str.length() - 1) >= '0'))
+//                        if (str.charAt(str.length() - 1) != '*')
                         str = str.substring(0, str.length() - 1);
-                    str += '*';
-                    answer.setText(str);
+                    else if (s.charAt(0) == '=') {
+                        s = s.substring(2);
+                    }
+                    if (s.length() == 0) {
+                        str += '*';
+                        answer.setText(str);
+                    } else {
+                        if (s.charAt(0) == '-') {
+                            s = '(' + s;
+                            s += ')';
+                        }
+                        if (str.length() > 0) {
+                            System.out.println(str);
+                            str = str + s + "*";
+                        } else {
+                            str += s;
+                            str += "*";
+                        }
+                        System.out.println(str);
+                        answer.setText(str);
+                        display.setText("");
+                    }
                 }
-//                if(str.charAt(str.length()-1) <= '9' && str.charAt(str.length()-1) >= '0')
-//                    str+= '*';
-//                else {
-//                    str = str.substring(0, str.length() - 1);
-//                }
-
             }
         });
         divide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pointcheck = false;
                 String str = answer.getText().toString();
                 String s = display.getText().toString();
-                if(str.length() == 0 && s.length() == 0){
-                    Toast.makeText(MainActivity.this, "Press Any Digit First", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    if(!(str.charAt(str.length()-1) <= '9' && str.charAt(str.length()-1) >= '0'))
+                if (str.length() == 0 && s.length() == 0) {
+                    Toast.makeText(divide.getContext(), "Press Any Digit First", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (str.length() > 0 && s.length() == 0 && !(str.charAt(str.length() - 1) <= '9' && str.charAt(str.length() - 1) >= '0'))
+//                        if (str.charAt(str.length() - 1) != '/')
                         str = str.substring(0, str.length() - 1);
-                    str += '/';
-                    answer.setText(str);
+                    else if (s.charAt(0) == '=') {
+                        s = s.substring(2);
+                    }
+                    if (s.length() == 0) {
+                        str += '/';
+                        answer.setText(str);
+                    } else {
+                        if (s.charAt(0) == '-') {
+                            s = '(' + s;
+                            s += ')';
+                        }
+                        if (str.length() > 0) {
+                            System.out.println(str);
+                            str = str + s + "/";
+                        } else {
+                            str += s;
+                            str += "/";
+                        }
+                        System.out.println(str);
+                        answer.setText(str);
+                        display.setText("");
+                    }
                 }
-//                if(str.charAt(str.length()-1) <= '9' && str.charAt(str.length()-1) >= '0')
-//                    str+= '/';
-//                else {
-//                    str = str.substring(0, str.length() - 1);
-//                }
-
+                pointcheck = false;
             }
         });
 
